@@ -17,19 +17,19 @@
   <div class="site-bg"></div>
 
   <header class="header">
-    <div class="container nav">
+    <div class="container nav-shell">
       <a href="#top" class="logo">
         <span class="logo-dot"></span>
         <span>DMITRY</span>
       </a>
 
-      <nav class="nav-links">
+      <nav class="nav-links" id="navLinks">
         <a href="#about">Обо мне</a>
         <a href="#services">Чем занимаюсь</a>
         <a href="#projects">Проекты</a>
         <a href="#skills">Навыки</a>
         <a href="#contacts">Контакты</a>
-        <span class="nav-indicator"></span>
+        <span class="nav-indicator" id="navIndicator"></span>
       </nav>
 
       <a href="#contacts" class="nav-btn">Связаться</a>
@@ -52,7 +52,7 @@
   <main id="top">
     <section class="hero section">
       <div class="container hero-grid">
-        <div class="hero-left">
+        <div class="hero-left reveal">
           <div class="eyebrow">Личная digital-страница</div>
 
           <h1 class="hero-title">
@@ -79,7 +79,7 @@
           </div>
         </div>
 
-        <div class="hero-card">
+        <div class="hero-card reveal">
           <div class="profile-card">
             <div class="profile-top">
               <div class="profile-avatar">D</div>
@@ -114,13 +114,13 @@
 
     <section id="about" class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-label">Обо мне</div>
           <h2>Не просто “делаю сайты”, а собираю цельную цифровую подачу</h2>
         </div>
 
         <div class="about-grid">
-          <div class="about-card about-card-main">
+          <div class="about-card about-card-main reveal">
             <p>
               Я занимаюсь разработкой и цифровыми проектами. Мне интересно не просто
               сверстать красивую страницу, а собрать решение, которое выглядит сильно,
@@ -133,7 +133,7 @@
             </p>
           </div>
 
-          <div class="about-card">
+          <div class="about-card reveal">
             <div class="mini-title">Мой принцип</div>
             <p>
               Делать не просто “нормально”, а так, чтобы у проекта был характер,
@@ -141,7 +141,7 @@
             </p>
           </div>
 
-          <div class="about-card">
+          <div class="about-card reveal">
             <div class="mini-title">Что важно</div>
             <p>
               Скорость, понятность, сильная визуальная подача, удобство и ощущение,
@@ -154,13 +154,13 @@
 
     <section id="services" class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-label">Чем занимаюсь</div>
           <h2>Основные направления</h2>
         </div>
 
         <div class="cards-grid three">
-          <article class="info-card">
+          <article class="info-card reveal">
             <div class="card-number">01</div>
             <h3>Сайты и лендинги</h3>
             <p>
@@ -169,7 +169,7 @@
             </p>
           </article>
 
-          <article class="info-card">
+          <article class="info-card reveal">
             <div class="card-number">02</div>
             <h3>Автоматизация</h3>
             <p>
@@ -178,7 +178,7 @@
             </p>
           </article>
 
-          <article class="info-card">
+          <article class="info-card reveal">
             <div class="card-number">03</div>
             <h3>Цифровые продукты</h3>
             <p>
@@ -192,13 +192,13 @@
 
     <section id="projects" class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-label">Проекты</div>
           <h2>Что я уже делал и в каких направлениях двигаюсь</h2>
         </div>
 
         <div class="projects-grid">
-          <article class="project-card">
+          <article class="project-card reveal">
             <div class="project-tag">Личный / брендовый сайт</div>
             <h3>Личные страницы и упаковка эксперта</h3>
             <p>
@@ -207,7 +207,7 @@
             </p>
           </article>
 
-          <article class="project-card">
+          <article class="project-card reveal">
             <div class="project-tag">AI / автоматизация</div>
             <h3>Автоматизированные digital-решения</h3>
             <p>
@@ -216,7 +216,7 @@
             </p>
           </article>
 
-          <article class="project-card">
+          <article class="project-card reveal">
             <div class="project-tag">Концепт / запуск</div>
             <h3>Запуск новых идей и online-проектов</h3>
             <p>
@@ -225,7 +225,7 @@
             </p>
           </article>
 
-          <article class="project-card">
+          <article class="project-card reveal">
             <div class="project-tag">Security / mindset</div>
             <h3>Интерес к кибербезопасности и системному мышлению</h3>
             <p>
@@ -239,31 +239,31 @@
 
     <section class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-label">Подход</div>
           <h2>Как я думаю о проекте</h2>
         </div>
 
         <div class="approach-grid">
-          <div class="approach-item">
+          <div class="approach-item reveal">
             <span>01</span>
             <h3>Сначала смысл</h3>
             <p>Понять, что именно должен передавать сайт и какое впечатление он должен оставлять.</p>
           </div>
 
-          <div class="approach-item">
+          <div class="approach-item reveal">
             <span>02</span>
             <h3>Потом структура</h3>
             <p>Собрать блоки так, чтобы человек быстро понял суть и не терялся по пути.</p>
           </div>
 
-          <div class="approach-item">
+          <div class="approach-item reveal">
             <span>03</span>
             <h3>Потом визуал</h3>
             <p>Сильная подача, чистота, контраст, дорогой вид без перегруза и мусора.</p>
           </div>
 
-          <div class="approach-item">
+          <div class="approach-item reveal">
             <span>04</span>
             <h3>И только потом детали</h3>
             <p>Кнопки, анимации, шрифты, микроакценты и всё, что создаёт ощущение уровня.</p>
@@ -274,12 +274,12 @@
 
     <section id="skills" class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="section-label">Навыки</div>
           <h2>Стек и направления</h2>
         </div>
 
-        <div class="skills-box">
+        <div class="skills-box reveal">
           <span>HTML</span>
           <span>CSS</span>
           <span>JavaScript</span>
@@ -298,7 +298,7 @@
 
     <section id="contacts" class="section section-last">
       <div class="container">
-        <div class="contact-box">
+        <div class="contact-box reveal">
           <div>
             <div class="section-label">Контакты</div>
             <h2>Если нужен сайт, digital-упаковка или сильная online-подача — можно написать мне</h2>
@@ -309,10 +309,10 @@
           </div>
 
           <div class="contact-links">
-            <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer">Telegram</a>
-            <a href="mailto:yourmail@example.com">Email</a>
-            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer" class="reveal">Telegram</a>
+            <a href="mailto:yourmail@example.com" class="reveal">Email</a>
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="reveal">GitHub</a>
+            <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" class="reveal">Instagram</a>
           </div>
         </div>
       </div>
