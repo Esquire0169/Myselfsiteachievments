@@ -13,23 +13,27 @@ if (burger && mobileMenu) {
   });
 }
 
-/* ===== Reveal on scroll with stagger ===== */
-const revealTargets = document.querySelectorAll(`
-  .section-head,
-  .about-card,
-  .info-card,
-  .project-card,
-  .approach-item,
-  .contact-box,
-  .hero-left,
-  .hero-card,
-  .skills-box,
-  .contact-links a
-`);
+/* ===== Reveal on scroll with stagger groups ===== */
+const revealGroups = [
+  document.querySelectorAll(".hero-left, .hero-card"),
+  document.querySelectorAll("#about .about-card"),
+  document.querySelectorAll("#services .info-card"),
+  document.querySelectorAll("#projects .project-card"),
+  document.querySelectorAll(".approach-item"),
+  document.querySelectorAll(".skills-box"),
+  document.querySelectorAll(".contact-box, .contact-links a")
+];
 
-revealTargets.forEach((el, index) => {
+revealGroups.forEach((group) => {
+  group.forEach((el, index) => {
+    el.classList.add("reveal");
+    el.style.setProperty("--reveal-delay", `${index * 90}ms`);
+  });
+});
+
+document.querySelectorAll(".section-head").forEach((el) => {
   el.classList.add("reveal");
-  el.style.setProperty("--reveal-delay", `${Math.min(index * 35, 280)}ms`);
+  el.style.setProperty("--reveal-delay", `0ms`);
 });
 
 const observer = new IntersectionObserver((entries) => {
@@ -158,7 +162,7 @@ document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     .filter(Boolean);
 
   const updateActive = () => {
-    const offset = window.scrollY + 140;
+    const offset = window.scrollY + 160;
     let current = sections[0];
 
     sections.forEach((item) => {
@@ -174,7 +178,7 @@ document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
   window.addEventListener("resize", updateActive);
 })();
 
-/* ===== Subtle parallax on hero card ===== */
+/* ===== Hero card parallax ===== */
 (() => {
   const canHover = () =>
     window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -196,5 +200,29 @@ document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
   heroCardWrap.addEventListener("mouseleave", () => {
     profileCard.style.transform = "";
+  });
+})();
+
+/* ===== Project cards subtle tilt ===== */
+(() => {
+  const canHover = () =>
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const cards = document.querySelectorAll(".project-card");
+
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      if (!canHover()) return;
+
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      card.style.transform = `perspective(900px) rotateY(${x * 4}deg) rotateX(${y * -4}deg) translateY(-4px)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
   });
 })();
