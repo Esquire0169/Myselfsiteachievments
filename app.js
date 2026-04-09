@@ -13,7 +13,7 @@ if (burger && mobileMenu) {
   });
 }
 
-/* Reveal on scroll */
+/* ===== Reveal on scroll with stagger ===== */
 const revealTargets = document.querySelectorAll(`
   .section-head,
   .about-card,
@@ -27,20 +27,23 @@ const revealTargets = document.querySelectorAll(`
   .contact-links a
 `);
 
+revealTargets.forEach((el, index) => {
+  el.classList.add("reveal");
+  el.style.setProperty("--reveal-delay", `${Math.min(index * 35, 280)}ms`);
+});
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.12 });
 
-revealTargets.forEach((el) => {
-  el.classList.add("reveal");
-  observer.observe(el);
-});
+document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
-/* Liquid nav indicator */
+/* ===== Liquid nav indicator ===== */
 (() => {
   const nav = document.getElementById("navLinks");
   const indicator = document.getElementById("navIndicator");
@@ -70,5 +73,128 @@ revealTargets.forEach((el) => {
   nav.addEventListener("mouseleave", () => {
     indicator.style.opacity = "0";
     indicator.style.width = "0px";
+  });
+})();
+
+/* ===== Scroll progress ===== */
+(() => {
+  const progress = document.getElementById("scrollProgress");
+  if (!progress) return;
+
+  const updateProgress = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const value = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progress.style.width = `${value}%`;
+  };
+
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
+})();
+
+/* ===== Magnetic buttons ===== */
+(() => {
+  const canHover = () =>
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const magneticTargets = document.querySelectorAll(".btn, .nav-btn");
+
+  magneticTargets.forEach((el) => {
+    el.classList.add("magnetic");
+
+    el.addEventListener("mousemove", (e) => {
+      if (!canHover()) return;
+
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      el.style.transform = `translate(${x * 0.08}px, ${y * 0.08}px)`;
+    });
+
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = "";
+    });
+  });
+})();
+
+/* ===== Spotlight hover ===== */
+(() => {
+  const canHover = () =>
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const spotlightCards = document.querySelectorAll(
+    ".about-card, .info-card, .project-card, .approach-item, .profile-card, .contact-box"
+  );
+
+  spotlightCards.forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      if (!canHover()) return;
+
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty("--mx", `${x}px`);
+      card.style.setProperty("--my", `${y}px`);
+    });
+  });
+})();
+
+/* ===== Active nav by scroll ===== */
+(() => {
+  const nav = document.getElementById("navLinks");
+  if (!nav) return;
+
+  const links = [...nav.querySelectorAll("a")];
+  const sections = links
+    .map((link) => {
+      const id = link.getAttribute("href");
+      if (!id || !id.startsWith("#")) return null;
+      const section = document.querySelector(id);
+      return section ? { link, section } : null;
+    })
+    .filter(Boolean);
+
+  const updateActive = () => {
+    const offset = window.scrollY + 140;
+    let current = sections[0];
+
+    sections.forEach((item) => {
+      if (item.section.offsetTop <= offset) current = item;
+    });
+
+    links.forEach((link) => link.classList.remove("is-active"));
+    if (current) current.link.classList.add("is-active");
+  };
+
+  updateActive();
+  window.addEventListener("scroll", updateActive, { passive: true });
+  window.addEventListener("resize", updateActive);
+})();
+
+/* ===== Subtle parallax on hero card ===== */
+(() => {
+  const canHover = () =>
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const heroCardWrap = document.querySelector(".hero-card");
+  const profileCard = document.querySelector(".profile-card");
+  if (!heroCardWrap || !profileCard) return;
+
+  heroCardWrap.addEventListener("mousemove", (e) => {
+    if (!canHover()) return;
+
+    const rect = heroCardWrap.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    profileCard.style.transform =
+      `perspective(900px) rotateY(${x * 6}deg) rotateX(${y * -6}deg) translateY(-4px)`;
+  });
+
+  heroCardWrap.addEventListener("mouseleave", () => {
+    profileCard.style.transform = "";
   });
 })();
