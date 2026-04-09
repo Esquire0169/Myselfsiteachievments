@@ -13,7 +13,7 @@ if (burger && mobileMenu) {
   });
 }
 
-/* ===== Reveal on scroll ===== */
+/* Reveal on scroll */
 const revealTargets = document.querySelectorAll(`
   .section-head,
   .about-card,
@@ -27,8 +27,6 @@ const revealTargets = document.querySelectorAll(`
   .contact-links a
 `);
 
-revealTargets.forEach((el) => el.classList.add("reveal"));
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -37,33 +35,35 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 
-document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+revealTargets.forEach((el) => {
+  el.classList.add("reveal");
+  observer.observe(el);
+});
 
-/* ===== Liquid nav indicator ===== */
+/* Liquid nav indicator */
 (() => {
-  const nav = document.querySelector(".nav-links");
-  if (!nav) return;
+  const nav = document.getElementById("navLinks");
+  const indicator = document.getElementById("navIndicator");
+  if (!nav || !indicator) return;
 
-  const indicator = nav.querySelector(".nav-indicator");
   const links = [...nav.querySelectorAll("a")];
-  if (!indicator || !links.length) return;
 
-  const isDesktop = () =>
+  const canHover = () =>
     window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   const moveIndicator = (el) => {
     const navRect = nav.getBoundingClientRect();
     const rect = el.getBoundingClientRect();
 
-    indicator.style.width = `${rect.width + 14}px`;
-    indicator.style.transform = `translateX(${rect.left - navRect.left - 7}px)`;
+    indicator.style.width = `${rect.width}px`;
+    indicator.style.transform = `translateX(${rect.left - navRect.left}px)`;
+    indicator.style.opacity = "1";
   };
 
   links.forEach((link) => {
     link.addEventListener("mouseenter", () => {
-      if (!isDesktop()) return;
+      if (!canHover()) return;
       moveIndicator(link);
-      indicator.style.opacity = "1";
     });
   });
 
