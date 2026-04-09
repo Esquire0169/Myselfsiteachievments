@@ -724,4 +724,154 @@ button {
   .contact-box {
     padding: 26px;
   }
+ /* ===== V2 PREMIUM MOTION PACK ===== */
+
+/* Scroll progress */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  z-index: 120;
+  background: linear-gradient(90deg, rgba(223,232,255,.95), rgba(134,165,255,.95));
+  box-shadow: 0 0 18px rgba(143,170,255,.45);
+  transition: width .08s linear;
+}
+
+/* Stagger reveal tuning */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  filter: blur(8px);
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.22,.61,.36,1),
+    filter .8s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Magnetic targets */
+.magnetic {
+  will-change: transform;
+  transition: transform .16s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+}
+
+/* Spotlight cards */
+.about-card,
+.info-card,
+.project-card,
+.approach-item,
+.profile-card,
+.contact-box {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.about-card::before,
+.info-card::before,
+.project-card::before,
+.approach-item::before,
+.profile-card::before,
+.contact-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255,255,255,.10),
+      rgba(159,183,255,.06) 25%,
+      transparent 60%
+    );
+  transition: opacity .22s ease;
+}
+
+.about-card:hover::before,
+.info-card:hover::before,
+.project-card:hover::before,
+.approach-item:hover::before,
+.profile-card:hover::before,
+.contact-box:hover::before {
+  opacity: 1;
+}
+
+/* keep content above spotlight */
+.about-card > *,
+.info-card > *,
+.project-card > *,
+.approach-item > *,
+.profile-card > *,
+.contact-box > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Active nav state */
+.nav-links a.is-active {
+  color: var(--text);
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+/* Slightly richer hover */
+.project-card:hover,
+.info-card:hover,
+.about-card:hover,
+.approach-item:hover {
+  background: rgba(255,255,255,.075);
+}
+
+/* Noise overlay */
+.site-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .045;
+  background-image:
+    radial-gradient(rgba(255,255,255,.9) 0.45px, transparent 0.45px);
+  background-size: 7px 7px;
+  mix-blend-mode: soft-light;
+}
+
+/* Stronger premium button response */
+.btn-primary:hover,
+.btn-secondary:hover,
+.nav-btn:hover {
+  box-shadow:
+    0 18px 40px rgba(123,154,255,.24),
+    inset 0 0 0 1px rgba(255,255,255,.06);
+}
+
+/* smoother hero card float feeling */
+.hero-card .profile-card {
+  transform-style: preserve-3d;
+}
+
+/* mobile safety */
+@media (max-width: 820px) {
+  .scroll-progress {
+    height: 2px;
+  }
+
+  .about-card::before,
+  .info-card::before,
+  .project-card::before,
+  .approach-item::before,
+  .profile-card::before,
+  .contact-box::before {
+    display: none;
+  }
+}
 }
